@@ -1,0 +1,11 @@
+dn: ou=administrador,dc=identityeye,dc=com
+objectClass: organizationalUnit
+ou: administradors
+
+dn: ou=informatic,dc=identityeye,dc=com
+objectClass: organizationalUnit
+ou: informatic
+
+dn: ou=comercial,dc=identityeye,dc=com
+objectClass: organizationalUnit
+ou: comercial

@@ -1,0 +1,25 @@
+dn: uid=mfabregat,ou=comercial,dc=identityeye,dc=com
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: mfabregat
+sn: Marc
+givenName: Marc
+cn: Marc Fabregat
+displayName: Marc Fabregat Paraigues
+uidNumber: 1004
+gidNumber: 10000
+userPassword: 3coma1415
+gecos: Marc Fabregat
+loginShell: /bin/bash
+homeDirectory: /home/mfabregat
+shadowExpire: -1
+shadowFlag: 0
+shadowWarning: 7
+shadowMin: 8
+shadowMax: 999999
+shadowLastChange: 10877
+mail: mfabregat@identityeye.com
+postalCode: 25400
+o: identityeye
+initials: MF

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+  	<title>Registre Usuari</title>
+  	<meta charset="UTF-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--===============================================================================================-->
+  	<link rel="icon" type="image/png" href="../favicon.ico"/>
+  <!--===============================================================================================-->
+  	<link rel="stylesheet" type="text/css" href="../assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+  <!--===============================================================================================-->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+
+  <body>
+    <!--Bacground-->
+    <!-- Container -->
+    <div id="app" class="container form_registre_contrasenya formulari_registre">
+      <background></background>
+      <p v-if="errors.length">
+          <p class="error_validacio" v-for="error in errors"><b>Error!</b> {{ error }}</p>
+      </p>
+      <h1 class='text_registre'><img height="55px" src="../assets/img/imatges_web/icono-ubuntuLogo.png" alt=""> {{dadesUsuari.displayName}} <img height="55px" src="../assets/img/imatges_web/icono-ubuntuLogo.png" alt=""></h1>
+      <form action="/editar_usuari" method="GET" id="form_editar_usuari" enctype="multipart/form-data">
+        <fieldset disabled>
+          <div class="form-group has-success has-feedback">
+              <label for="first-name">Nº Usuari</label>
+              <input type="text" class="form-control" placeholder="Nom Usuari" id="numbe-name" v-model="dadesUsuari.uidNumber" readonly="readonly" :state="true">
+              <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+          </div>
+          <div class="form-group has-success has-feedback">
+              <label for="first-name">Usuari</label>
+              <input type="text" class="form-control" placeholder="Nom Usuari" id="nom usuari" v-model="dadesUsuari.uid" readonly="readonly" :state="true" required>
+              <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+          </div>
+          <div class="form-group has-success has-feedback">
+              <label for="country">Grup</label>
+              <input type="text" class="form-control" placeholder="grup" id="grup" v-model="dadesUsuari.grup" readonly="readonly" :state="true" required>
+              <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+          </div>
+      </fieldset>
+        <div :class="['form-group has-feedback', comprobarValidacio('nom', 'has')]">
+            <label for="last-name">Nom</label>
+            <input type="text" class="form-control" placeholder="Nom" v-model="dadesUsuari.displayName" @keyup="comprobarValidacio('nom', 'has')" required>
+            <span :class="['glyphicon form-control-feedback', comprobarValidacio('nom', 'icon')]"></span>
+        </div>
+        <div :class="['form-group has-feedback', comprobarValidacio('correu', 'has')]">
+            <label for="number">Correu</label>
+            <input type="text" class="form-control" placeholder="correu" id="correu" v-model="dadesUsuari.mail" @keyup="comprobarValidacio('correu', 'has')" required>
+            <span :class="['glyphicon form-control-feedback', comprobarValidacio('correu', 'icon')]"></span>
+        </div>
+        <div class="form-group has-success has-feedback">
+            <label for="last-name">Directori</label>
+            <input type="text" id="directori" class="form-control" placeholder="Directori" v-model="dadesUsuari.homeDirectory" @mouseover="overDirectori" readonly="readonly" :state="true" required>
+            <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        </div>
+
+        <div :class="['form-group has-feedback', comprobarValidacio('contrasenyes', 'has')]">
+            <label for="email">Contrasenya</label>
+            <input type="password" class="form-control" placeholder="" v-model="contrasenya1" @keyup="comprobarValidacio('contrasenyes', 'has')" required>
+            <span :class="['glyphicon form-control-feedback', comprobarValidacio('contrasenyes', 'icon')]"></span>
+        </div>
+        <div :class="['form-group has-feedback', comprobarValidacio('contrasenyes', 'has')]">
+            <label for="email">Repetir Contrasenya</label>
+            <input type="password" class="form-control" placeholder="" v-model="contrasenya2" @keyup="comprobarValidacio('contrasenyes', 'has')" required>
+            <span :class="['glyphicon form-control-feedback', comprobarValidacio('contrasenyes', 'icon')]"></span>
+        </div>
+            <div class="clearfix"></div>
+            <input type="button" :class="['btn btn-success btn-lg btn-responsive', comprobarValidacio('boto')]" name="" value="Enviar" :disabled="estatBoto === false" @click="enviarFormulari">
+        </form>
+        </div>
+    </div>
+
+    <!--Scripts necessaris pel VUE JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.0/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.3.1/vue-resource.min.js"></script>
+    <script src="../assets/js/components/background.js"></script>
+    <script src="../assets/js/codi_crearUsuari.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+dn: uid=eroca,ou=informatics,dc=identityeye,dc=com
+uid: eroca
+displayName: Eloi Roca Plana
+uidNumber: 101
+homeDirectory: /home/eroca
+mail: eloi@gmail.com
+postalCode: 25400
+initials: ER
+

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+    <!--===============================================================================================-->
+    	<link rel="icon" type="image/png" href="../favicon.ico"/>
+    <!--===============================================================================================-->
+    	<link rel="stylesheet" type="text/css" href="../assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="../assets/css/taula.css">
+      <link rel="stylesheet" href="../assets/css/style.css">
+    <!--===============================================================================================-->
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <background></background>
+      <div v-if="dadesUsuariBD.grup == 'informatic' || dadesUsuariBD.grup == 'comercial'">
+      <sidebar :dadesusuaribd='dadesUsuariBD' ></sidebar>
+      <div class='contingut'>
+        <capsalera :dadesusuaribd='dadesUsuariBD' :dadessoftware='dadesSOFTWARE'></capsalera>
+        <div class="dashboard_content">
+            <div class="dashboard_estats_hardware row">
+                <div class="col-md-4">
+                    <div class="estat_hardware">
+                        <div class="apartat_dispositius row">
+                            <div class="col-md-6">
+                                <img src="/assets/img/imatges_web/imatge-cpu.png" style="margin:0 auto;" height="50px"/>
+                            </div>
+                            <div class="col-md-6 titol_dispositiu">
+                                <span class="nom">Processador</span>
+                            </div>
+                        </div>
+                        <div class="apartat_dispositiu_cos">
+                          <div id="estatCPU"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="estat_hardware">
+                        <div class="apartat_dispositius row">
+                            <div class="col-md-6">
+                                <img src="/assets/img/imatges_web/imatge-ram.png" style="margin:0 auto;" height="50px"/>
+                            </div>
+                            <div class="col-md-6 titol_dispositiu">
+                                <span class="nom">Memòria RAM</span>
+                            </div>
+                        </div>
+                        <div class="apartat_dispositiu_cos">
+                          <div id="estatRAM"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="estat_hardware">
+                        <div class="apartat_dispositius row">
+                            <div class="col-md-6">
+                                <img src="/assets/img/imatges_web/imatge-disco.png" style="margin:0 auto;" height="50px"/>
+                            </div>
+                            <div class="col-md-6 titol_dispositiu">
+                                <span class="nom">Disc Dur</span>
+                            </div>
+                        </div>
+                        <div class="apartat_dispositiu_cos">
+                          <div id="estatDISCO"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dashboard_estats_software row">
+                <div class="col-md-4">
+                  <div class="estat_software">
+                    <div class="apartat_dispositius row">
+                        <div class="col-md-6">
+                            <img src="/assets/img/imatges_web/imatge-so.png" style="margin:0 auto;" height="50px"/>
+                        </div>
+                        <div class="col-md-6 titol_dispositiu">
+                            <span class="nom">Sistema Operatiu</span>
+                        </div>
+                    </div>
+                    <div class="apartat_dispositiu_cos">
+                      <ul>
+                          <li>Nom del Servidor: <b>{{dadesSOFTWARE.hostnameSO}}</b></li>
+                          <li>Nom del Sistema Operatiu: <b>{{dadesSOFTWARE.nomSO}}</b></li>
+                          <li>Plataforma Sistema Operatiu: <b>{{dadesSOFTWARE.plataformaSO}}</b></li>
+                          <li>Arquitectura Sistema Operatiu: <b>{{dadesSOFTWARE.arquitecturaSO}}</b></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="estat_software">
+                    <div class="apartat_dispositius row">
+                        <div class="col-md-6">
+                            <img src="/assets/img/imatges_web/imatge-serveis.png" style="margin:0 auto;" height="50px"/>
+                        </div>
+                        <div class="col-md-6 titol_dispositiu">
+                            <span class="nom">Serveis</span>
+                        </div>
+                    </div>
+                    <center>
+                    <div class="apartat_dispositiu_cos ">
+
+                        <div class="row contenedor_serveis" style="padding-left: 80px;">
+                          <div class="estat_servei col-md-5" v-for="servei of dadesSERVEIS">
+                              <div class="row">
+                                <div class="col-md-6">
+                                    {{servei.nom}}
+                                </div>
+                                <div class="col-md-6" style="text-align:center;">
+                                  <img src="/assets/img/imatges_web/icon-true.png" v-if="servei.estat === true" height="25px"/>
+                                  <img src="/assets/img/imatges_web/icon-false.png" v-if="servei.estat === false" height="25px"/>
+                                </div>
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="estat_software">
+                      <div class="apartat_dispositius row">
+                          <div class="col-md-6">
+                              <img src="/assets/img/imatges_web/imatge-red.png" style="margin:0 auto;" height="50px"/>
+                          </div>
+                          <div class="col-md-6 titol_dispositiu">
+                              <span class="nom">Targeta de Red</span>
+                          </div>
+                      </div>
+                      <div class="apartat_dispositiu_cos">
+                        <ol>
+                            <li v-for="adaptador of dadesSOFTWARE.dadesRED">
+                              <b>{{adaptador.nom}}</b>
+                              <ul>
+                                <li>Ip: <b>{{adaptador.address}}</b></li>
+                                <li>Mascara: Adaptador: <b>{{adaptador.mascara}}</b></li>
+                                <li>Familia: <b>{{adaptador.familia}}</b></li>
+                                <li>MAC: <b>{{adaptador.mac}}</b></li>
+                              </ul>
+                            </li>
+                        </ol>
+                      </div>
+                  </div>
+                </div>
+            </div>
+            <div class="dashboard_estats_software row">
+                <div class="col-md-12">
+                  <div class="estat_software">
+                    <div class="apartat_dispositius row">
+                        <div class="col-md-2">
+                            <img src="/assets/img/imatges_web/imatge-so.png" style="margin:0 auto;" height="50px"/>
+                        </div>
+                        <div class="col-md-10 titol_dispositiu">
+                            <span class="nom">Usuaris Aplicació</span>
+                        </div>
+                    </div>
+                    <div class="apartat_dispositiu_cos">
+                      <div class="limiter">
+                    		<div class="container-table100">
+                    			<div class="wrap-table100">
+
+                    				<div class="table100 ver5 m-b-110">
+                    					<table data-vertable="ver5">
+                    						<thead>
+                    							<tr class="row100 head">
+                                    <th class="column100 column1" data-column="column1">Nº</th>
+                    								<th class="column100 column1" data-column="column2">Usuari</th>
+                    								<th class="column100 column2" data-column="column3">Nom</th>
+                    								<th class="column100 column3" data-column="column4">Grup</th>
+                    								<th class="column100 column4" data-column="column5">Inicials</th>
+                    								<th class="column100 column5" data-column="column6">Directori</th>
+                    								<th class="column100 column6" data-column="column7">Correu</th>
+                    							</tr>
+                    						</thead>
+                    						<tbody>
+                    							<tr class="row100" v-for="usuari of dadesUSUARISBD">
+                    								<td class="column100 column1" data-column="column1">{{usuari.uidNumber}}</td>
+                    								<td class="column100 column2" data-column="column2">{{usuari.uid}}</td>
+                    								<td class="column100 column3" data-column="column3">{{usuari.displayName}}</td>
+                    								<td class="column100 column4" data-column="column4">{{usuari.grup}}</td>
+                    								<td class="column100 column5" data-column="column5">{{usuari.initials}}</td>
+                    								<td class="column100 column6" data-column="column6">{{usuari.homeDirectory}}</td>
+                    								<td class="column100 column7" data-column="column7">{{usuari.mail}}</td>
+                    							</tr>
+
+                    						</tbody>
+                    					</table>
+                    				</div>
+                    			</div>
+                    		</div>
+                    	</div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+      </div>
+</div>
+  </div>
+
+
+    <!--Scripts necessaris pel VUE JS -->
+    <!--<script src="/socket.io/socket.io.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.0/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.3.1/vue-resource.min.js"></script>
+    <script src="../assets/js/components/background.js"></script>
+    <script src="../assets/js/components/sidebar.js"></script>
+    <script src="../assets/js/components/capsalera.js"></script>
+    <script src="../assets/js/codi_dashboard.js"></script>
+
+
+  </body>
+
+
+</html>
