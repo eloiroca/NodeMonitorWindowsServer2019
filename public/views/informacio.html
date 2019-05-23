@@ -22,17 +22,9 @@
       <div class='contingut'>
         <capsalera :dadesusuaribd='dadesUsuariBD' :dadessoftware='dadesSOFTWARE'></capsalera>
         <div class="rss_content">
-            <div class='rss_feed row' v-for="entrada of dadesRSS.entries">
-              <div class="col-md-9 rss_titol">
-                  {{entrada.title}}
-              </div>
-              <div class="col-md-3 rss_data">
-                  {{entrada.publishedDate}}
-              </div>
-              <div class="col-md-12 rss_cos" v-html="entrada.content">
-                  {{entrada.content}}
-              </div>
-            </div>
+          <object type="application/pdf" width="100%" height="1000"  data="../assets/pdf/ProjecteMonitorNode.pdf">
+              <p>Si puede leer este mensaje es que su navegador no soporta correctamente el elemento <code>object</code></p>
+          </object>
         </div>
       </div>
     </div>

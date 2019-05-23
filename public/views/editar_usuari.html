@@ -22,7 +22,7 @@
     <!-- Container -->
     <div id="app" class="container form_registre_contrasenya formulari_registre">
       <background></background>
-      <div v-if="dadesUsuariBD.grup == 'informatic' || dadesUsuariBD.grup == 'comercial'">
+      <div v-if="dadesUsuari.grup == 'informatic' || dadesUsuari.grup == 'comercial'">
       <p v-if="errors.length">
           <p class="error_validacio" v-for="error in errors"><b>Error!</b> {{ error }}</p>
       </p>
